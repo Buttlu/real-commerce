@@ -1,0 +1,90 @@
+:root {
+  --angle: 0;
+  --scale: 0;
+  --duration: 15;
+  --n: 4;
+}
+
+@property --angle {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+@property --scale {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+@property --duration {
+  syntax: "<number>";
+  initial-value: 0.1;
+  inherits: true;
+}
+
+.image {
+  top: -1000px;
+  --angle: 0;
+  --scale: 1;  
+  width: 90%;
+  aspect-ratio: 3/2;
+  position: absolute;
+  display: inline;
+  transform: perspective(450px) rotateX(calc(var(--angle) * 1deg)) scale(var(--scale));  
+  transition: angle(var(--angle));
+  z-index: 100;
+
+  &:hover {
+    transform: scale(1.2);
+    z-index: 200;
+  }
+}
+
+@keyframes speedup {
+  from {
+    --duration: 0.1;
+  }
+  to {
+    --duration: 15;
+  }
+}
+
+@keyframes tilt {
+  0% {
+    --angle: -90;
+    --scale: 0.6;
+  }
+  50% {
+    --scale: 0.95;
+  }
+  100% {
+    --angle: 90;
+    --scale: 0.6;
+  }
+}
+
+@keyframes move {
+  from {
+    top: 470px;
+  }
+  to {
+    top: -90px;
+  }
+}
+
+/* the start delay depends on the duration: 0 sec, 1/n sec, 2/n sec, 3/n sec etc where n = number of elements */
+#image0 { 
+  animation: move calc(var(--duration) * 1s) ease-in-out calc(var(--duration) * calc(3/var(--n)) * 1s) infinite forwards,
+             tilt calc(var(--duration) * 1s) linear calc(var(--duration) * calc(3/var(--n)) * 1s) infinite forwards;
+}
+#image1 { 
+  animation: move calc(var(--duration) * 1s) ease-in-out calc(var(--duration) * calc(2/var(--n)) * 1s) infinite forwards,
+            tilt calc(var(--duration) * 1s) linear calc(var(--duration) * calc(2/var(--n)) * 1s) infinite forwards;
+}
+#image2 { 
+  animation: move calc(var(--duration) * 1s) ease-in-out calc(var(--duration) * calc(1/var(--n)) * 1s) infinite forwards,
+            tilt calc(var(--duration) * 1s) linear calc(var(--duration) * calc(1/var(--n)) * 1s) infinite forwards;
+}
+#image3 { 
+  animation: move calc(var(--duration) * 1s) ease-in-out calc(var(--duration) * calc(0/var(--n)) * 1s) infinite forwards,
+          tilt calc(var(--duration) * 1s) linear calc(var(--duration) * calc(0/var(--n)) * 1s) infinite forwards;      
+}

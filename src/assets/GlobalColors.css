@@ -1,0 +1,11 @@
+:root {
+  
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  --body-backgound: #242424;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
